@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Secret Birthday Room 🎀🐱</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+  background:linear-gradient(135deg,#ffd6e7,#ffe6ef,#fff1f5);
+}
+
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:30px 20px;
+  text-align:center;
+  position:relative;
+  z-index:2;
+}
+
+h1{
+  font-family: Algerian, "Times New Roman", serif;
+  font-size:46px;
+  color:#d94f8a;
+  letter-spacing:2px;
+  margin-bottom:12px;
+  text-align:center;
+
+  text-shadow:
+    0 0 4px rgba(255,255,255,.35),
+    0 0 8px rgba(255,182,193,.35),
+    0 0 16px rgba(255,105,180,.25);
+
+  animation:titleGlow 2.4s ease-in-out infinite alternate;
+}
+
+.subtitle{
+  font-size:20px;
+  color:#b85c7a;
+  font-weight:bold;
+  margin-bottom:35px;
+  text-shadow:0 2px 6px rgba(255,255,255,0.45);
+}
+
+.decor{
+  position:fixed;
+  font-size:28px;
+  opacity:.75;
+  pointer-events:none;
+  animation:float 6s ease-in-out infinite;
+}
+
+.flags{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:90px;
+  overflow:hidden;
+  pointer-events:none;
+}
+
+.flags::before{
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:
+  repeating-linear-gradient(
+    90deg,
+    #ff7eb3 0 40px,
+    #ffd166 40px 80px,
+    #7bdff2 80px 120px,
+    #b2f7ef 120px 160px,
+    #f7b267 160px 200px
+  );
+
+  clip-path:polygon(
+    0 0,
+    100% 0,
+    95% 0,
+    92% 100%,
+    88% 0,
+    84% 100%,
+    80% 0,
+    76% 100%,
+    72% 0,
+    68% 100%,
+    64% 0,
+    60% 100%,
+    56% 0,
+    52% 100%,
+    48% 0,
+    44% 100%,
+    40% 0,
+    36% 100%,
+    32% 0,
+    28% 100%,
+    24% 0,
+    20% 100%,
+    16% 0,
+    12% 100%,
+    8% 0,
+    4% 100%,
+    0 0
+  );
+  opacity:.9;
+}
+
+.balloons{
+  position:fixed;
+  top:120px;
+  font-size:90px;
+  z-index:0;
+  pointer-events:none;
+  opacity:.95;
+}
+
+.left-balloon{
+  left:30px;
+}
+
+.right-balloon{
+  right:30px;
+}
+
+.left-balloon{
+  left:25px;
+}
+
+.right-balloon{
+  right:25px;
+}
+
+.bg-heart{
+  position:fixed;
+  font-size:120px;
+  opacity:.45;
+  z-index:0;
+  pointer-events:none;
+}
+
+.heart1{
+  top:30%;
+  left:8%;
+}
+
+.heart2{
+  top:18%;
+  right:12%;
+}
+
+.heart3{
+  bottom:20%;
+  left:50%;
+}
+
+.heart4{
+  top:48%;
+  right:18%;
+}
+
+.heart5{
+  bottom:12%;
+  left:14%;
+}
+
+@keyframes floatBalloon{
+  0%{transform:translateY(0);}
+  50%{transform:translateY(-12px);}
+  100%{transform:translateY(0);}
+}
+
+.corner-cat{
+  position:fixed;
+  font-size:78px;
+  z-index:0;
+  opacity:.95;
+  animation:catFloat 3s ease-in-out infinite;
+}
+
+.cat-left{
+  bottom:35px;
+  left:35px;
+}
+
+.cat-right{
+  bottom:35px;
+  right:35px;
+}
+
+@keyframes catFloat{
+  0%{
+    transform:translateY(0);
+  }
+
+  50%{
+    transform:translateY(-8px);
+  }
+
+  100%{
+    transform:translateY(0);
+  }
+}
+
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+  100%{transform:translateY(0)}
+}
+
+@keyframes titleGlow{
+  from{
+    transform:scale(1);
+    text-shadow:
+      0 0 6px rgba(255,255,255,.95),
+      0 0 12px rgba(255,182,193,.75),
+      0 0 20px rgba(255,105,180,.45);
+  }
+
+  to{
+    transform:scale(1.03);
+    text-shadow:
+      0 0 10px rgba(255,255,255,1),
+      0 0 18px rgba(255,182,193,.95),
+      0 0 28px rgba(255,105,180,.75),
+      0 0 40px rgba(255,192,203,.65);
+  }
+}
+
+.floating-balloon{
+  position:fixed;
+  bottom:-120px;
+  font-size:42px;
+  pointer-events:none;
+  z-index:0;
+  opacity:.75;
+  animation:balloonUp linear forwards;
+}
+
+@keyframes balloonUp{
+  0%{
+    transform:translateY(0);
+    opacity:0;
+  }
+
+  15%{
+    opacity:.75;
+  }
+
+  100%{
+    transform:translateY(-120vh);
+    opacity:0;
+  }
+}
+
+.photo-wall{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:20px;
+  margin-top:25px;
+}
+
+.photo-card{
+  position:relative;
+  background:white;
+  padding:10px;
+  border-radius:18px;
+  box-shadow:0 8px 18px rgba(0,0,0,.12);
+  transform:rotate(-2deg);
+}
+
+/* foto 1 */
+.photo-card:nth-child(1)::before{
+  content:"😇";
+  position:absolute;
+  top:-10px;
+  right:10px;
+  font-size:22px;
+  transform:rotate(10deg);
+}
+
+/* foto 2 */
+.photo-card:nth-child(2)::before{
+  content:"😋";
+  position:absolute;
+  top:-10px;
+  right:12px;
+  font-size:20px;
+  transform:rotate(-8deg);
+}
+
+/* foto 3 */
+.photo-card:nth-child(3)::before{
+  content:"😜";
+  position:absolute;
+  top:-10px;
+  right:8px;
+  font-size:20px;
+  transform:rotate(12deg);
+}
+
+/* foto 4 */
+.photo-card:nth-child(4)::before{
+  content:"🤭";
+  position:absolute;
+  top:-10px;
+  right:10px;
+  font-size:20px;
+  transform:rotate(-10deg);
+}
+
+.photo-card img{
+  width:100%;
+  height:280px;     
+  object-fit:cover; 
+  border-radius:12px;
+  display:block;
+}
+
+.caption{
+  margin-top:8px;
+  font-size:14px;
+  color:#666;
+}
+
+.cake{
+  font-size:90px;
+  margin:40px 0 15px;
+  cursor:pointer;
+}
+
+.message-box{
+  background:rgba(255,255,255,.45);
+  backdrop-filter:blur(10px);
+  padding:20px;
+  border-radius:22px;
+  color:#7a4c5f;
+  font-size:20px;
+  line-height:1.8;
+  margin-top:35px;
+}
+
+.final-gift{
+  display:none;
+  margin-top:45px;
+  animation:fadeUp 1.2s ease forwards;
+}
+
+.final-gift img{
+  width:min(420px,90%);
+  border-radius:24px;
+  box-shadow:0 12px 30px rgba(0,0,0,.15);
+}
+
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(40px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.cat-text{
+  margin-top:16px;
+  font-size:22px;
+  color:#ff5fa2;
+  font-weight:bold;
+}
+
+button{
+  margin-top:18px;
+  border:none;
+  padding:12px 24px;
+  border-radius:30px;
+  background:#ff7eb3;
+  color:white;
+  font-size:18px;
+  cursor:pointer;
+}
+
+@media (max-width:768px){
+
+  h1{
+    font-size:30px;
+    line-height:1.3;
+    padding:0 12px;
+  }
+
+  .subtitle{
+    font-size:17px;
+    padding:0 12px;
+  }
+
+  .container{
+    padding:20px 16px;
+  }
+
+  .photo-wall{
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+  }
+
+  .balloons{
+    font-size:52px;
+  }
+
+  .corner-cat{
+    font-size:52px;
+  }
+
+  .message-box{
+    font-size:17px;
+    line-height:1.6;
+    padding:16px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg-heart heart1">🤍</div>
+<div class="bg-heart heart2">🤍</div>
+<div class="bg-heart heart3">🤍</div>
+<div class="bg-heart heart4">🤍</div>
+<div class="bg-heart heart5">🤍</div>
+
+<div class="flags"></div>
+
+<div class="corner-cat cat-left">🐱</div>
+<div class="corner-cat cat-right">🐱</div>
+
+<div class="decor" style="top:8%;left:8%;">🐱</div>
+<div class="decor" style="top:15%;right:10%;">🎀</div>
+<div class="decor" style="bottom:15%;left:8%;">🐾</div>
+<div class="decor" style="bottom:10%;right:8%;">✨</div>
+
+<div class="container">
+
+<h1>WELCOME TO SECRET BIRTHDAY ROOM AULIA'S🎊</h1>
+
+<div class="subtitle">
+masih ada kejutan kecil dari affa buat iaa 🎀
+</div>
+
+<div class="photo-wall">
+
+<div class="photo-card">
+<img src="ia287.jpeg">
+<div class="caption">momen favorit affa sih ini 🤍</div>
+</div>
+
+<div class="photo-card">
+<img src="ia312.jpeg">
+<div class="caption">yang ini lucu banget sii 😺</div>
+</div>
+
+<div class="photo-card">
+<img src="ia302.jpeg">
+<div class="caption">yang ini keliatan cantik banget si ✨</div>
+</div>
+
+<div class="photo-card">
+<img src="ia56.jpeg">
+<div class="caption">foto kesukaan affa banget sii ini 📸</div>
+</div>
+
+</div>
+
+<div class="cake" onclick="showGift()">
+🎂
+</div>
+
+<div class="cat-text">
+klik kuenya yaa 🎂🐱
+</div>
+
+<div id="finalGift" class="final-gift">
+
+<div class="message-box">
+sebenernya... affa masih punya satu hadiah kecil lagi buat iaa 💌
+<br><br>
+sebelum nya affa minta maaf ya mungkin affa belum bisa ngasih hadiah yang mewah...
+<br>
+tapi affa pengen ngasih sesuatu
+yang isinya tetap mewah tapi sesuai
+dengan kemampuan affa 🤍✨
+</div>
+
+<br>
+
+<img src="bouquet-ia.jpeg">
+
+<div class="message-box">
+selamat ulang tahun yaa 💐
+<br>
+ini hadiah kecil dari affa buat iaa 🤍🐱
+</div>
+
+</div>
+
+</div>
+
+<script>
+function showGift(){
+  document.getElementById("finalGift").style.display="block";
+
+  window.scrollTo({
+    top:document.body.scrollHeight,
+    behavior:"smooth"
+  });
+}
+</script>
+
+<script>
+function createBalloon(){
+
+  const balloon = document.createElement("div");
+  balloon.classList.add("floating-balloon");
+
+  const balloons = ["🎈","🎈","🎈","🎀"];
+
+  balloon.innerHTML =
+    balloons[Math.floor(Math.random()*balloons.length)];
+
+  balloon.style.left = Math.random()*100 + "vw";
+
+  balloon.style.fontSize =
+    (Math.random()*28 + 28) + "px";
+
+  balloon.style.animationDuration =
+    (Math.random()*8 + 10) + "s";
+
+  document.body.appendChild(balloon);
+
+  setTimeout(()=>{
+    balloon.remove();
+  },18000);
+}
+
+setInterval(createBalloon,2200);
+</script>
+
+</body>
+</html>
