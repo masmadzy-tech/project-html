@@ -262,6 +262,31 @@ position:relative;
   animation:giftPop 0.35s ease;
 }
 
+.countdown-box{
+  text-align:center;
+  margin:40px auto 20px;
+  padding:20px;
+  width:min(420px,90%);
+  border-radius:24px;
+  background:rgba(255,255,255,.22);
+  backdrop-filter:blur(12px);
+  box-shadow:0 8px 24px rgba(255,255,255,.25);
+}
+
+.countdown-title{
+  font-size:20px;
+  color:white;
+  font-weight:bold;
+  margin-bottom:12px;
+}
+
+#countdownTimer{
+  font-size:32px;
+  color:#fff;
+  font-weight:bold;
+  letter-spacing:2px;
+}
+
 @keyframes giftPop{
   0%{
     transform:scale(1);
@@ -589,6 +614,11 @@ text-shadow:0 0 8px rgba(0,0,0,0.35);
 </style>
 </head>
 <body>
+
+<div id="countdownBox" class="countdown-box">
+  <div class="countdown-title">🎀 hadiah ini akan terbuka dalam 🎀</div>
+  <div id="countdownTimer">Loading...</div>
+</div>
 
 <div id="giftScreen">
 
@@ -1026,6 +1056,60 @@ function createConfetti(){
     },3000);
   }
 }
+</script>
+
+<script>
+const targetDate = new Date("June 5, 2026 00:00:00").getTime();
+
+const countdownTimer =
+document.getElementById("countdownTimer");
+
+const giftScreen =
+document.getElementById("giftScreen");
+
+giftScreen.style.display = "none";
+
+const timer = setInterval(function(){
+
+  const now = new Date().getTime();
+  const distance = targetDate - now;
+
+  if(distance <= 0){
+
+    clearInterval(timer);
+
+    countdownTimer.innerHTML =
+      "🎉 waktunya buka hadiah 🎉";
+
+    giftScreen.style.display = "flex";
+
+    document.getElementById("countdownBox")
+      .style.display = "none";
+
+    return;
+  }
+
+  const days =
+    Math.floor(distance / (1000*60*60*24));
+
+  const hours =
+    Math.floor((distance %
+    (1000*60*60*24)) /
+    (1000*60*60));
+
+  const minutes =
+    Math.floor((distance %
+    (1000*60*60)) /
+    (1000*60));
+
+  const seconds =
+    Math.floor((distance %
+    (1000*60)) / 1000);
+
+  countdownTimer.innerHTML =
+    `${days}h ${hours}j ${minutes}m ${seconds}d`;
+
+},1000);
 </script>
 
 </body>
