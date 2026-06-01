@@ -428,6 +428,135 @@ transform-origin:top center;
   width:min(420px,90%);
   border-radius:24px;
   box-shadow:0 12px 30px rgba(0,0,0,.15);
+  position:relative;
+  z-index:2;
+}
+
+.bouquet-frame{
+  position:relative;
+  display:inline-block;
+  margin-top:20px;
+}
+
+.flower-deco{
+  position:absolute;
+  font-size:34px;
+  z-index:3;
+  pointer-events:none;
+}
+
+.flower-top-left{
+  top:-18px;
+  left:-18px;
+}
+
+.flower-top-right{
+  top:-18px;
+  right:-18px;
+}
+
+.flower-bottom-left{
+  bottom:-18px;
+  left:-18px;
+}
+
+.flower-bottom-right{
+  bottom:-18px;
+  right:-18px;
+}
+
+.bouquet-frame{
+  position:relative;
+  display:inline-block;
+  padding:22px;
+  border-radius:28px;
+  background:rgba(255,255,255,.22);
+}
+
+.bouquet-frame::before,
+.bouquet-frame::after{
+  content:"";
+  position:absolute;
+  width:90px;
+  height:90px;
+  background-size:contain;
+  background-repeat:no-repeat;
+  pointer-events:none;
+  z-index:4;
+}
+
+.bouquet-frame::before{
+  top:-18px;
+  left:-18px;
+  background-image:url("flower-corner.png");
+}
+
+.bouquet-frame::after{
+  bottom:-18px;
+  right:-18px;
+  transform:rotate(180deg);
+  background-image:url("flower-corner.png");
+}
+
+.bouquet-frame{
+  position:relative;
+  display:inline-block;
+  width:min(460px,92%);
+  min-height:620px;
+  padding:22px;
+  border-radius:28px;
+
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:cover;
+
+  transition:.4s ease;
+}
+
+.bouquet-frame img{
+  width:100%;
+  display:block;
+  border-radius:24px;
+  position:relative;
+  z-index:2;
+}
+
+.no-frame{
+  background:none;
+  min-height:auto;
+  padding:0;
+}
+
+.frame-picker-title{
+  margin-top:22px;
+  font-size:20px;
+  font-weight:bold;
+  color:#d65d92;
+}
+
+.frame-picker{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+  margin-top:14px;
+}
+
+.frame-picker button{
+  border:none;
+  padding:10px 16px;
+  border-radius:999px;
+  background:#fff;
+  color:#d94f8a;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 4px 10px rgba(0,0,0,.08);
+  transition:.25s;
+}
+
+.frame-picker button:hover{
+  transform:scale(1.05);
 }
 
 @keyframes fadeUp{
@@ -604,7 +733,27 @@ dengan kemampuan affa 🤍✨
 
 <br>
 
-<img src="bouquet-ia.jpeg">
+<div id="bouquetFrame" class="bouquet-frame no-frame">
+  <img src="bouquet-ia.jpeg">
+</div>
+
+<div class="frame-picker-title">
+  pilih bingkai favoritmu 🎀
+</div>
+
+<div class="frame-picker">
+
+  <button onclick="changeFrame('none')">🚫 Tanpa Bingkai</button>
+
+  <button onclick="changeFrame('frame1')">🌸 Frame 1</button>
+
+  <button onclick="changeFrame('frame2')">💐 Frame 2</button>
+
+  <button onclick="changeFrame('frame3')">🌷 Frame 3</button>
+
+  <button onclick="changeFrame('frame4')">🎀 Frame 4</button>
+
+</div>
 
 <div class="message-box">
 selamat ulang tahun yaa 💐
@@ -715,15 +864,41 @@ function burstConfetti(side){
         }
       ],
       {
-        duration:6000,
+        duration:7000,
         easing:"cubic-bezier(.15,.8,.25,1)"
       }
     );
 
     setTimeout(()=>{
       confetti.remove();
-    },6000);
+    },7000);
   }
+}
+</script>
+
+<script>
+function changeFrame(frame){
+
+  const bouquet =
+    document.getElementById("bouquetFrame");
+
+  if(frame === "none"){
+    bouquet.style.backgroundImage = "none";
+    bouquet.classList.add("no-frame");
+    return;
+  }
+
+  const frameList = {
+    frame1: "nama-file-frame-1.png",
+    frame2: "nama-file-frame-2.png",
+    frame3: "nama-file-frame-3.png",
+    frame4: "nama-file-frame-4.png"
+  };
+
+  bouquet.style.backgroundImage =
+    `url('${frameList[frame]}')`;
+
+  bouquet.classList.remove("no-frame");
 }
 </script>
 
