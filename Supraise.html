@@ -435,7 +435,32 @@ transform-origin:top center;
 .bouquet-frame{
   position:relative;
   display:inline-block;
-  margin-top:20px;
+  width:min(420px,90%);
+}
+
+.bouquet-frame img{
+  width:100%;
+  display:block;
+  border-radius:24px;
+  position:relative;
+  z-index:2;
+}
+
+.bouquet-frame::after{
+  content:"";
+  position:absolute;
+  inset:-18px;
+
+  background-position:center;
+  background-size:100% 100%;
+  background-repeat:no-repeat;
+
+  z-index:3;
+  pointer-events:none;
+}
+
+.no-frame::after{
+  display:none;
 }
 
 .flower-deco{
@@ -488,14 +513,17 @@ transform-origin:top center;
 .bouquet-frame::before{
   top:-18px;
   left:-18px;
-  background-image:url("flower-corner.png");
 }
 
 .bouquet-frame::after{
   bottom:-18px;
   right:-18px;
   transform:rotate(180deg);
-  background-image:url("flower-corner.png");
+
+  background-image:var(--frame-image);
+
+  background-size:contain;
+  background-repeat:no-repeat;
 }
 
 .bouquet-frame{
@@ -883,22 +911,27 @@ function changeFrame(frame){
     document.getElementById("bouquetFrame");
 
   if(frame === "none"){
-    bouquet.style.backgroundImage = "none";
     bouquet.classList.add("no-frame");
+    bouquet.style.setProperty(
+      '--frame-image',
+      'none'
+    );
     return;
   }
 
   const frameList = {
-    frame1: "bingkai-floral.png",
-    frame2: "bingkai-flower.png",
-    frame3: "bingkai-rose.png",
-    frame4: "bingkai-sakura.png"
+    frame1:"bingkai-rose.png",
+    frame2:"bingkai-floral.png",
+    frame3:"bingkai-flower.png",
+    frame4:"bingkai-sakura.png"
   };
 
-  bouquet.style.backgroundImage =
-    `url('${frameList[frame]}')`;
-
   bouquet.classList.remove("no-frame");
+
+  bouquet.style.setProperty(
+    '--frame-image',
+    `url('${frameList[frame]}')`
+  );
 }
 </script>
 
