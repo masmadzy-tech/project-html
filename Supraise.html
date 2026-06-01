@@ -473,6 +473,14 @@ button{
   cursor:pointer;
 }
 
+.confetti-piece{
+  position:fixed;
+  width:10px;
+  height:16px;
+  pointer-events:none;
+  z-index:99999;
+}
+
 @media (max-width:768px){
 
   h1{
@@ -610,6 +618,9 @@ ini hadiah kecil dari affa buat iaa 🤍🐱
 
 <script>
 function showGift(){
+  burstConfetti("left");
+  burstConfetti("right");
+  
   document.getElementById("finalGift").style.display="block";
 
   window.scrollTo({
@@ -648,7 +659,75 @@ function createBalloon(){
 setInterval(createBalloon,2200);
 </script>
 
-  <script>
+<script>
+function burstConfetti(side){
+
+  for(let i=0; i<80; i++){
+
+    const confetti = document.createElement("div");
+    confetti.classList.add("confetti-piece");
+
+    const colors = [
+      "#ff4d6d",
+      "#ffd60a",
+      "#4cc9f0",
+      "#ff85d8",
+      "#7bffb2",
+      "#ffffff",
+      "#ff9f1c"
+    ];
+
+    confetti.style.background =
+      colors[Math.floor(Math.random()*colors.length)];
+
+    if(side === "left"){
+      confetti.style.left = "0px";
+    }else{
+      confetti.style.right = "0px";
+    }
+
+    confetti.style.bottom = "0px";
+
+    document.body.appendChild(confetti);
+
+    const x =
+      side === "left"
+      ? Math.random()*500 + 100
+      : -(Math.random()*500 + 100);
+
+    const y = -(Math.random()*450 + 250);
+
+    confetti.animate(
+      [
+        {
+          transform:"translate(0,0) rotate(0deg)",
+          opacity:1
+        },
+        {
+          transform:`translate(${x}px, ${y}px)
+          rotate(${Math.random()*720}deg)`,
+          opacity:1
+        },
+        {
+          transform:`translate(${x*1.2}px, 100vh)
+          rotate(${Math.random()*1000}deg)`,
+          opacity:0
+        }
+      ],
+      {
+        duration:3000,
+        easing:"cubic-bezier(.15,.8,.25,1)"
+      }
+    );
+
+    setTimeout(()=>{
+      confetti.remove();
+    },3000);
+  }
+}
+</script>
+
+<script>
 function createPetal(){
   const petal = document.createElement("div");
 
