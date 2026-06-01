@@ -614,41 +614,23 @@ dengan kemampuan affa 🤍✨
 
 <img src="bouquet-ia.jpeg" class="bouquet-img">
 
-<div class="frame-picker-title">
-  pilih bingkai favoritmu 🎀
-</div>
-
-<div class="frame-picker">
-
-  <button onclick="changeFrame('none')">🚫 Tanpa Bingkai</button>
-
-  <button onclick="changeFrame('frame1')">🌸 Frame 1</button>
-  <button onclick="changeFrame('frame2')">💐 Frame 2</button>
-  <button onclick="changeFrame('frame3')">🌷 Frame 3</button>
-  <button onclick="changeFrame('frame4')">🎀 Frame 4</button>
-
-  <button onclick="changeFrame('frame5')">🌹 Frame 5</button>
-  <button onclick="changeFrame('frame6')">🪻 Frame 6</button>
-  <button onclick="changeFrame('frame7')">🌼 Frame 7</button>
-  
-</div>
-
 <div class="message-box">
 selamat ulang tahun yaa 💐
 <br>
 ini hadiah kecil dari affa buat iaa 🤍🐱
 </div>
 
-</div>
-
-</div>
-
 <script>
 function showGift(){
+
+  document.querySelector(".cake").innerHTML = "🎂💨";
+
+  playPopSound();
+
   burstConfetti("left");
   burstConfetti("right");
-  
-  document.getElementById("finalGift").style.display="block";
+
+  document.getElementById("finalGift").style.display = "block";
 
   window.scrollTo({
     top:document.body.scrollHeight,
@@ -773,6 +755,22 @@ function createPetal(){
 }
 
 setInterval(createPetal,2200);
+</script>
+
+<audio id="popSound" preload="auto">
+  <source src="pop_confetti.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function playPopSound(){
+
+  const pop =
+    document.getElementById("popSound");
+
+  pop.currentTime = 0;
+  pop.play();
+
+}
 </script>
 
 </body>
