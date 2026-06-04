@@ -592,6 +592,24 @@ button{
 
 }
 
+.feedback-btn{
+  margin-top:20px;
+  padding:14px 24px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(135deg,#ff7eb3,#ff5fa2);
+  color:white;
+  font-size:18px;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 6px 15px rgba(255,105,180,.3);
+  transition:.3s;
+}
+
+.feedback-btn:hover{
+  transform:scale(1.05);
+}
+
 @media (max-width:768px){
 
   h1{
@@ -738,6 +756,11 @@ selamat ulang tahun yaa 💐
 <br>
 ini hadiah kecil dari affa buat iaa 🤍🐱
 </div>
+
+<button class="feedback-btn"
+onclick="window.open('https://forms.gle/xmnGWweGIwL3eMIC7','_blank')">
+💌 Tinggalkan Pesan Untuk Affa
+</button>
 
 <script>
 function showGift(){
