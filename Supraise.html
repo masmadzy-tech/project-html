@@ -489,6 +489,104 @@ button{
   z-index:99999;
 }
 
+.balloon-side{
+  position:fixed;
+  top:120px;
+  width:120px;
+  height:80vh;
+  z-index:1;
+  pointer-events:none;
+}
+
+.left-side{
+  left:10px;
+}
+
+.right-side{
+  right:10px;
+}
+
+.balloon{
+  position:absolute;
+  cursor:pointer;
+  pointer-events:auto;
+
+  animation:
+    sway 4s ease-in-out infinite;
+}
+
+.balloon-body{
+  width:60px;
+  height:75px;
+
+  border-radius:
+    50% 50% 45% 45%;
+
+  position:relative;
+}
+
+.balloon-body::after{
+  content:"";
+  position:absolute;
+
+  bottom:-8px;
+  left:50%;
+
+  transform:translateX(-50%);
+
+  width:0;
+  height:0;
+
+  border-left:6px solid transparent;
+  border-right:6px solid transparent;
+  border-top:10px solid currentColor;
+}
+
+.balloon-string{
+  width:2px;
+  height:80px;
+  background:#999;
+
+  margin:auto;
+}
+
+@keyframes sway{
+
+  0%{
+    transform:rotate(-3deg);
+  }
+
+  50%{
+    transform:rotate(3deg);
+  }
+
+  100%{
+    transform:rotate(-3deg);
+  }
+
+}
+
+.pop{
+
+  animation:
+  popBalloon .35s forwards;
+
+}
+
+@keyframes popBalloon{
+
+  0%{
+    transform:scale(1);
+    opacity:1;
+  }
+
+  100%{
+    transform:scale(1.5);
+    opacity:0;
+  }
+
+}
+
 @media (max-width:768px){
 
   h1{
@@ -531,6 +629,9 @@ button{
 </head>
 
 <body>
+
+<div class="balloon-side left-side"></div>
+<div class="balloon-side right-side"></div>
 
 <div class="fairy-lights">
   <span class="light"></span>
@@ -771,6 +872,164 @@ function playPopSound(){
   pop.play();
 
 }
+</script>
+
+<script>
+
+function createFancyBalloon(side){
+
+  const container =
+    document.querySelector(
+      "." + side
+    );
+
+  const balloon =
+    document.createElement("div");
+
+  balloon.className = "balloon";
+
+  const colors = [
+    "#ff6fa5",
+    "#ffd166",
+    "#7bdff2",
+    "#b8f2e6",
+    "#f7b267",
+    "#cdb4db"
+  ];
+
+  const color =
+    colors[
+      Math.floor(
+        Math.random()*colors.length
+      )
+    ];
+
+  balloon.style.top =
+    Math.random()*500 + "px";
+
+  balloon.style.left =
+    Math.random()*40 + "px";
+
+  balloon.innerHTML = `
+    <div
+      class="balloon-body"
+      style="
+      background:${color};
+      color:${color};
+      ">
+    </div>
+
+    <div
+      class="balloon-string">
+    </div>
+  `;
+
+  balloon.addEventListener(
+    "click",
+    ()=>{
+
+      balloon.classList.add("pop");
+
+      miniBurst(balloon);
+
+      setTimeout(()=>{
+
+        balloon.remove();
+
+        createFancyBalloon(side);
+
+      },500);
+
+    }
+  );
+
+  container.appendChild(balloon);
+
+}
+
+function miniBurst(balloon){
+
+  for(let i=0;i<12;i++){
+
+    const spark =
+      document.createElement("div");
+
+    spark.innerHTML =
+      ["✨","🌸","💖"]
+      [
+      Math.floor(
+      Math.random()*3
+      )
+      ];
+
+    spark.style.position="fixed";
+
+    const rect =
+      balloon.getBoundingClientRect();
+
+    spark.style.left =
+      rect.left + 20 + "px";
+
+    spark.style.top =
+      rect.top + 20 + "px";
+
+    spark.style.zIndex=9999;
+
+    document.body.appendChild(
+      spark
+    );
+
+    const x =
+      (Math.random()-0.5)*150;
+
+    const y =
+      (Math.random()-0.5)*150;
+
+    spark.animate(
+
+      [
+        {
+          transform:
+          "translate(0,0)",
+          opacity:1
+        },
+
+        {
+          transform:
+          `translate(${x}px,${y}px)`,
+          opacity:0
+        }
+
+      ],
+
+      {
+        duration:900
+      }
+
+    );
+
+    setTimeout(()=>{
+
+      spark.remove();
+
+    },900);
+
+  }
+
+}
+
+for(let i=0;i<3;i++){
+
+  createFancyBalloon(
+    "left-side"
+  );
+
+  createFancyBalloon(
+    "right-side"
+  );
+
+}
+
 </script>
 
 <audio autoplay loop id="bgMusic">
