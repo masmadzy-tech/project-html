@@ -494,7 +494,8 @@ button{
   bottom:0;
   width:170px;
   height:250px;
-  z-index:50;
+  z-index:1;
+  pointer-events:none;
 }
 
 .left-bouquet{
@@ -521,21 +522,21 @@ button{
 .balloon1{
   left:10px;
   top:50px;
-  background:#ffb3c6;
+  background:#ff4f8b;
 }
 
 /* tengah */
 .balloon2{
   left:55px;
   top:0;
-  background:#ffc2d1;
+  background:#ff6fa5;
 }
 
 /* kanan */
 .balloon3{
   left:100px;
   top:50px;
-  background:#ffe5ec;
+  background:#ff7fb5;
 }
 
 .balloon::after{
@@ -567,6 +568,12 @@ button{
   bottom:0;
 
   transform:translateX(-50%);
+}
+
+.balloon{
+  box-shadow:
+    0 0 12px rgba(255,255,255,.7),
+    0 8px 18px rgba(0,0,0,.15);
 }
 
 @keyframes sway{
